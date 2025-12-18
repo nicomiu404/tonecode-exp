@@ -84,14 +84,14 @@
     <h1>可聴型データハイディングToneCodeに関する<br>主観評価実験</h1>
 
     <div id="login-screen">
-        <p>管理者から配布されたユーザーID（数字）を入力して「実験を開始」を押してください。</p>
+        <p>実験用に配布された参加者ID（数字）を入力して「実験を開始」を押してください。</p>
         <input type="number" id="user-id" placeholder="例: 101" />
         <button onclick="startExperiment()">実験を開始</button>
     </div>
 
     <div id="player-screen" class="hidden">
         <p style="text-align: center; margin-bottom: 30px;">
-            以下の楽曲（A～H）を聴き、アンケートフォームの指示に従って回答してください。<br>
+            以下の楽曲（A～I）を聴き、アンケートフォームの指示に従って回答してください。<br>
             <span style="font-size:0.9em; color:#666;">ID: <span id="display-id"></span></span>
         </p>
         <div id="playlist"></div>
@@ -124,13 +124,16 @@
         const rng = mulberry32(userId);
 
         shuffle(VARIATIONS, rng);
+        
+        // 楽曲ファイルの割り当て
+        const fileChars = ['f', 'b', 'd', 'e', 'c', 'g', 'a', 'i', 'h'];
 
         const playlistDiv = document.getElementById('playlist');
         playlistDiv.innerHTML = "";
 
         SONGS.forEach((songName, index) => {
             const variantNum = VARIATIONS[index]; 
-            const songChar = songName.toLowerCase();
+            const songChar = fileChars[index];
 
             const fileName = `song_${songChar}_${variantNum}${EXTENSION}`;
             const filePath = `songs/${songChar}/${fileName}`;
