@@ -149,6 +149,20 @@
             `;
             playlistDiv.insertAdjacentHTML('beforeend', html);
         });
+
+        const allAudios = document.querySelectorAll('audio');
+
+        allAudios.forEach(audio => {
+            audio.addEventListener('play', (event) => {
+                const currentAudio = event.target;
+                
+                allAudios.forEach(otherAudio => {
+                    if (otherAudio !== currentAudio) {
+                        otherAudio.pause();
+                    }
+                });
+            });
+        });
     }
 
     // 乱数生成器 (Mulberry32)
